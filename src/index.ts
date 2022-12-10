@@ -19,10 +19,23 @@ const searchURLs = Object.keys(process.env)
 
 const scraper = new Scraper(searchURLs);
 
+const notifyItem = async (item:any) => {
+  const url = `https://es.wallapop.com/item/${item.web_slug}`;
+  const imageURL = item.images[0].small;
+  const body = `
+Price: ${item.price} Location: ${item.location.city}
+${item.shipping.item_is_shippable ? 'Shippable' : 'Not shippable'}
+${item.supports_shipping ? 'Supports shipping' : ''}
+${item.description}`;
+
+  return notifier.notify(item.title, body, url, imageURL);
+};
+
 const main = async () => {
   const results = await scraper.run(delay);
   if (lastRunItems.length === 0) {
     console.log('First run:', results.length);
+    notifyItem(results[0]);
   } else {
     const newItems = results.filter((item) => !lastRunItems.some(
       (lastItem) => lastItem.id === item.id,
@@ -31,14 +44,7 @@ const main = async () => {
     await newItems.reduce(
       (promise, item) => promise.then(async () => {
         try {
-          notifier.notify(item.title, `
-          Shipping: 
-          ${item.shipping.item_is_shippable}
-          ${item.supports_shipping}
-
-          Price: ${item.price}
-          Distance: ${item.location.city}
-          `);
+          await notifyItem(item);
         } catch (error) {
           console.error(error);
         }
