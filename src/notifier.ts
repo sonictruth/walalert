@@ -10,10 +10,10 @@ export default class Notifier {
     this.topic = ntfyTopic;
   }
 
-  notify(
+  async notify(
     title: string,
     message: string,
-    url = 'http://www.google.com',
+    url = '',
     imageURL = '',
   ) {
     const params: any = {
@@ -22,8 +22,9 @@ export default class Notifier {
       message,
       attach: imageURL,
       click: url,
+      filename: 'message.jpg',
     };
-    fetch(`${this.server}`, {
+    await fetch(`${this.server}`, {
       method: 'POST',
       body: JSON.stringify(params),
     });
