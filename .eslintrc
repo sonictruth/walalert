@@ -1,6 +1,7 @@
 {
     "rules": {
         "no-console": 0,
+        "no-promise-executor-return": 0
     },
     "root": true,
     "parser": "@typescript-eslint/parser",
