@@ -7,7 +7,7 @@
     "lint": "eslint src --ext .ts",
     "test": "npm run clean && jest",
     "clean": "rimraf ./build",
-    "start": "npm run clean && tsc && node build/index.js",
+    "start": "npm run clean && tsc && node build/Index.js",
     "start:dev": "npx nodemon"
   },
   "keywords": [],
