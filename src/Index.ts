@@ -63,9 +63,8 @@ export default class Index {
     const searchInfo = this.searchURLs.map((url) => {
       const parsed = urlParser.parse(url);
       const query = querystringParser.parse(parsed.query || '');
-      console.log(query, parsed.query);
       return {
-        keyword: query.keyword,
+        keywords: query.keywords,
         max: query.max_sale_price,
         order: query.order_by,
         categories: query.category_ids,
