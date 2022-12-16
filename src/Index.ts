@@ -76,6 +76,7 @@ export default class Index {
     console.log(`Interval: ${this.intervalMs / 1000}s`);
     console.log(`Req delay: ${this.delayBetweenRequestsMs / 1000}s`);
     this.lastRunItems = await this.getItems();
+    await new Promise((f) => setTimeout(f, this.intervalMs));
     return this.lastRunItems;
   }
 
