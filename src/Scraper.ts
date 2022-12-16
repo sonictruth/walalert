@@ -10,12 +10,13 @@ export default class Scraper {
   }
 
   async run(delay: number): Promise<Item[]> {
-    console.log('Run:', this.runCount);
+    Scraper.log(`[${this.runCount}]`);
     const allItems:Item[] = [];
     await this.searchURLs.reduce(
       (promise, url) => promise.then(async () => {
         await new Promise((f) => setTimeout(f, delay));
         try {
+          Scraper.log('•');
           const currentRequestItems = await Scraper.request(url);
           currentRequestItems.forEach((currentItem) => {
             const isDuplicate = allItems.some((item) => item.id === currentItem.id);
@@ -37,5 +38,9 @@ export default class Scraper {
     const response = await fetch(url);
     const data = await response.json();
     return data.search_objects;
+  }
+
+  static log(message: string) {
+    process.stdout.write(message);
   }
 }
