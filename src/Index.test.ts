@@ -38,7 +38,7 @@ describe('Just a suite', () => {
       WA_SRCH1: url1,
       WA_SRCH2: url2,
       WA_IGNORED_KEYWORDS:
-        'bolsa para,grafica,monitor,torre,sobremesa,eee,raspberry,chromebook,mochila para,maletin de,funda de,funda por,gaming',
+        'maletin,bolsa,monitor',
     };
     index = new Index();
   });
@@ -74,7 +74,7 @@ describe('Just a suite', () => {
 
   it('should not send notifications if title contains ignored keyword', async () => {
     mockedData[url1] = {
-      search_objects: [mockItem('id1', 'con maletín de con')],
+      search_objects: [mockItem('id1', 'some maletín title')],
     };
     mockedData[url2] = {
       search_objects: [mockItem('id2', 'ok title')],

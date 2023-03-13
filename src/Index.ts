@@ -122,9 +122,10 @@ export default class Index {
   }
 
   static includesAnyKewordsLocale(text: string, keywords: string[]): boolean {
-    return keywords.some((keyword) =>
-      Index.normalizeString(text).includes(keyword),
-    );
+    return keywords.some((keyword) => {
+      const normalised = Index.normalizeString(text);
+      return normalised.split(' ').some((titleText) => titleText.includes(keyword));
+    });
   }
 }
 
